@@ -1,15 +1,10 @@
 import { formatPriceCurrency } from "../../../utilities/utilities";
+import useCart from "../../../hooks/useCart";
 
 export default function ProductCard({ id, image, name, description, price }) {
-   function handleAddToCart() {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const isProductExist = cart.some((product) => product.id === id);
+   const { cart, addProduct } = useCart();
 
-      if (isProductExist) return;
-      cart.push({ id, image, name, price, quantity: 1 });
-
-      localStorage.setItem("cart", JSON.stringify(cart));
-   }
+   const isProductExist = cart.some((product) => product.id === id);
 
    return (
       <div className="flex md:flex-col bg-white border border-gray-300 rounded-lg shadow-md overflow-hidden">
@@ -21,8 +16,8 @@ export default function ProductCard({ id, image, name, description, price }) {
             </div>
             <div className="w-full flex justify-between items-end">
                <h6 className="text-green-600 font-semibold text-base sm:text-lg">{formatPriceCurrency(price)}</h6>
-               <button onClick={handleAddToCart} className="size-8 sm:size-10 grid place-content-center rounded-md duration-300 bg-green-600 hover:bg-green-700">
-                  <i className="bx bxs-cart-plus text-white text-lg sm:text-2xl"></i>
+               <button onClick={() => addProduct(id)} className={`size-8 sm:size-10 grid place-content-center rounded-md duration-300 ${isProductExist ? "bg-slate-100 inset-ring inset-ring-gray-300" : "bg-green-600 hover:bg-green-700"}`}>
+                  {isProductExist ? <i className="bx bxs-check-circle text-green-600 text-xl sm:text-2xl"></i> : <i className="bx bxs-cart-plus text-white text-lg sm:text-2xl"></i>}
                </button>
             </div>
          </div>
