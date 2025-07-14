@@ -3,3 +3,39 @@
 @theme {
    --font-poppins: "Poppins";
 }
+
+@utility scrollbar-hidden {
+   &::-webkit-scrollbar {
+      display: none;
+   }
+}
+
+@utility custom-scrollbar {
+   &::-webkit-scrollbar {
+      @apply w-1;
+   }
+
+   &::-webkit-scrollbar-track {
+      @apply bg-slate-300 rounded-2xl;
+   }
+
+   &::-webkit-scrollbar-thumb {
+      @apply bg-green-600 rounded-2xl;
+   }
+}
+
+@utility navbar-close {
+   clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+
+@utility navbar-open {
+   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+* {
+   font-family: var(--font-poppins);
+}
+
+button {
+   cursor: pointer;
+}
