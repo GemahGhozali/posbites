@@ -1,9 +1,12 @@
+import useCart from "../../../hooks/useCart";
 import { formatPriceCurrency } from "../../../utilities/utilities";
 
 import OrderData from "./OrderData";
 import Button from "../../../components/Button";
 
-export default function OrderSummary({ cart }) {
+export default function OrderSummary() {
+   const { cart } = useCart();
+
    const totalPurchasedItems = cart.reduce((accumulator, product) => (accumulator += product.quantity), 0);
    const totalOrderPrice = cart.reduce((accumulator, product) => (accumulator += product.price * product.quantity), 0);
 
