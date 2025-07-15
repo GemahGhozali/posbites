@@ -1,10 +1,21 @@
 import { formatPriceCurrency } from "../../../utilities/utilities";
 import useCart from "../../../hooks/useCart";
 
+import { toast } from "react-hot-toast";
+
 export default function ProductCard({ id, image, name, description, price }) {
    const { cart, addProduct } = useCart();
 
    const isProductExist = cart.some((product) => product.id === id);
+
+   function handleAddProduct() {
+      if (isProductExist) {
+         return toast.error(`${name} Already Added!`, { className: "w-full" });
+      }
+
+      addProduct(id);
+      toast.success(`Added ${name} To Cart!`, { className: "w-full" });
+   }
 
    return (
       <div className="flex md:flex-col bg-white border border-gray-300 rounded-lg shadow-md overflow-hidden">
@@ -16,7 +27,7 @@ export default function ProductCard({ id, image, name, description, price }) {
             </div>
             <div className="w-full flex justify-between items-end">
                <h6 className="text-green-600 font-semibold text-base sm:text-lg">{formatPriceCurrency(price)}</h6>
-               <button onClick={() => addProduct(id)} className={`size-8 sm:size-10 grid place-content-center rounded-md duration-300 ${isProductExist ? "bg-slate-100 inset-ring inset-ring-gray-300" : "bg-green-600 hover:bg-green-700"}`}>
+               <button onClick={handleAddProduct} className={`size-8 sm:size-10 grid place-content-center rounded-md duration-300 ${isProductExist ? "bg-slate-100 inset-ring inset-ring-gray-300" : "bg-green-600 hover:bg-green-700"}`}>
                   {isProductExist ? <i className="bx bxs-check-circle text-green-600 text-xl sm:text-2xl"></i> : <i className="bx bxs-cart-plus text-white text-lg sm:text-2xl"></i>}
                </button>
             </div>

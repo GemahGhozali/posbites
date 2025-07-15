@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import TabButton from "./components/TabButton";
 import ProductCard from "./components/ProductCard";
+import { Toaster } from "react-hot-toast";
 
 import products from "../../constant/products";
 
@@ -37,6 +38,8 @@ export default function HomePage() {
                <ProductCard key={product.id} id={product.id} image={product.image} name={product.name} description={product.description} price={product.price} />
             ))}
          </div>
+
+         <Toaster position="bottom-right" />
       </main>
    );
 }
