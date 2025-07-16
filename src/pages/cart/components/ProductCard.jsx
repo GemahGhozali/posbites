@@ -2,9 +2,15 @@ import { formatPriceCurrency } from "../../../utilities/utilities";
 import useCart from "../../../hooks/useCart";
 
 import QuantityChanger from "./QuantityChanger";
+import toast from "react-hot-toast";
 
 export default function ProductCard({ id, image, name, price, quantity }) {
    const { deleteProduct } = useCart();
+
+   function handleDeleteProduct() {
+      deleteProduct(id);
+      toast.success(`Removed ${name} From Cart`, { className: "w-full" });
+   }
 
    return (
       <div className="p-2 me-2 sm:me-4 bg-white border-2 border-gray-300 shadow-md rounded-md grid grid-cols-[auto_1fr] gap-2 md:gap-4">
@@ -17,7 +23,7 @@ export default function ProductCard({ id, image, name, price, quantity }) {
             </div>
             <QuantityChanger productId={id} quantity={quantity} />
             <span className="max-md:hidden md:col-span-3 font-semibold text-green-600">{formatPriceCurrency(price * quantity)}</span>
-            <button onClick={() => deleteProduct(id)} className="bx bx-trash max-md:justify-self-end md:col-span-1 bg-green-600 text-white size-[30px] rounded-md grid place-content-center duration-150 hover:bg-green-700"></button>
+            <button onClick={handleDeleteProduct} className="bx bx-trash max-md:justify-self-end md:col-span-1 bg-green-600 text-white size-[30px] rounded-md grid place-content-center duration-150 hover:bg-green-700"></button>
          </div>
 
          <hr className="col-span-2 border border-gray-300 md:hidden" />
