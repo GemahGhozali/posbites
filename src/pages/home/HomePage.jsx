@@ -39,7 +39,7 @@ export default function HomePage() {
             ))}
          </div>
 
-         <Toaster position="bottom-right" />
+         <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
       </main>
    );
 }
