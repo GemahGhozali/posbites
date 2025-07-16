@@ -2,6 +2,7 @@ import useCart from "../../hooks/useCart";
 
 import CartView from "./views/CartView";
 import EmptyCartView from "./views/EmptyCartView";
+import { Toaster } from "react-hot-toast";
 
 export default function CartPage() {
    const { cart } = useCart();
@@ -11,6 +12,7 @@ export default function CartPage() {
          <div className="h-full p-2 sm:p-4 bg-slate-50 md:border-gray-300 md:border-2 shadow-xl md:rounded-2xl flex flex-col gap-2 sm:gap-4">
             {cart.length === 0 ? <EmptyCartView /> : <CartView />}
          </div>
+         <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
       </main>
    );
 }
